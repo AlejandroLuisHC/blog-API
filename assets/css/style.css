@@ -52,7 +52,6 @@ html, body {
 .new-post-btn:hover {
     background: rgb(20, 101, 188);
     transform: scale(1.05);
-    
 }
 
 .post {
@@ -61,12 +60,17 @@ html, body {
     padding: 10px;
     border-radius: 10px;
     border: 2px solid #ccc;
-    box-shadow: 0 5px 10px rgba(2,0,36,.3);
+    box-shadow: 0 5px 5px rgba(2,0,36,.3);
 }
 
-.post h3 {
+.post h4 {
     text-align: center;
-    text-decoration: underline;
+}
+
+.title-container {
+    background-color: rgba(20, 101, 188, .1);
+    border-radius: 8px 8px 0 0;
+    margin: -10px -10px 15px;
 }
 
 .edit-btn, .delete-btn {
@@ -80,4 +84,24 @@ html, body {
     border: none;
     transform: scale(1.2);
     
+}
+
+/* Edit PopUp
+..................................................*/
+.pop-up {
+    font-family: 'Lato', sans-serif;
+    background: white;
+    padding: 10px;
+    height: 500px;
+    width: 800px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    box-shadow: 0 0 100px rgba(2,0,36,1);
+}
+
+.title-edit {
+    text-align: center;
 }
