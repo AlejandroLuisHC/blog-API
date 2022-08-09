@@ -7,6 +7,7 @@ box-sizing: border-box;
 
 html, body {
     font-family: 'Lato', sans-serif;
+    background: #eee;
     width: 100%;
     height: 100%;
 }
@@ -17,12 +18,66 @@ html, body {
     padding: 5px 30px;
     font-weight: 900;
     font-size: 24px;
-    box-shadow: 0 5px 5px rgba(2,0,36,.5);
+    box-shadow: 0 5px 10px rgba(2,0,36,.5);
 }
 .logo-nav {
-    color: black;
     text-decoration: none;
+    text-shadow: 0 0 5px rgba(0,212,255,1);
+    color: black;
+}
+.logo-nav:hover {
+    color: white;
+    text-shadow: 0 0 5px rgb(141, 236, 255);
 }
 .logo-nav img {
     width: 35px;
+}
+
+.intro {
+    background: white;
+    margin-top: 30px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    box-shadow: 0 5px 10px rgba(2,0,36,.3);
+    text-align: center;
+}
+
+.new-post-btn {
+    background: rgb(20, 101, 188);
+    margin-top: 15px;
+    box-shadow: 0 5px 10px rgba(2,0,36,.3);
+    transition: 300ms;
+}
+.new-post-btn:hover {
+    background: rgb(20, 101, 188);
+    transform: scale(1.05);
+    
+}
+
+.post {
+    background: white;
+    margin-top: 30px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    box-shadow: 0 5px 10px rgba(2,0,36,.3);
+}
+
+.post h3 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+.edit-btn, .delete-btn {
+    background: none;
+    border: none;
+    transition: 200ms;
+}
+.edit-btn:hover, .delete-btn:hover {
+    background: none;
+    color: rgb(20, 101, 188);
+    border: none;
+    transform: scale(1.2);
+    
 }

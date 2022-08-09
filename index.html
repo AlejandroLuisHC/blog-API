@@ -13,6 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"
         defer></script>
+    <script src="https://kit.fontawesome.com/fe24ce668c.js" crossorigin="anonymous" defer></script>
 </head>
 
 <body>
@@ -23,7 +24,40 @@
         </a>
     </nav>
     <main>
-        
+        <div class="row justify-content-center">
+            <section class="col-8 intro">
+                <h1>Welcome to Blog</h1>
+                <p>Here one can write a brief introduction to the blog.</p>
+            </section>
+        </div>
+
+        <div class="row justify-content-center">
+            <button class="col-6 btn btn-primary new-post-btn">Create new post</button>
+        </div>
+
+        <div class="row justify-content-evenly">
+            <article class="col-5 post">
+                <div class="row">
+                    <div class="col-2"></div>
+                    <h3 class="col-8">Post 1</h3>
+                    <button class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button class="col-1 delete-btn"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+                <p>This is an example of the post content.</p>
+            </article>
+
+            <article class="col-5 post">
+                <div class="row">
+                    <div class="col-2"></div>
+                    <h3 class="col-8">Post 2</h3>
+                    <button class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button class="col-1 delete-btn"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+                <p>This is an example of the post content.</p>
+            </article>
+        </div>
+
+
     </main>
 </body>
 
