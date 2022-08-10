@@ -16,14 +16,13 @@ const //Users data
 
 // Comments Data
 const comments = []
-    
+
 window.onload = storeUsers();
 
 function storeUsers() {
     fetch("http://localhost:3000/users")
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             data.forEach(e => {
                 userId.push(e.id)
                 userName.push(e.name)
@@ -40,10 +39,9 @@ function storeUsers() {
 window.onload = storeComments();
 
 function storeComments() {
-    fetch("http://localhost:3000/users")
+    fetch("http://localhost:3000/comments")
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             data.forEach(e => {
                 comments.push(e)
             });
@@ -72,20 +70,42 @@ function displayPosts() {
                 article.setAttribute("id", `${IDs[i]}`)
                 article.innerHTML = `
                 <div class="row title-container">
-                <div class="col-2"></div>
-                <h4 onclick="moreInfo('${IDs[i]}', '${userIDsPost[i]}')" id="tit${i}" class="col-8 post-title">${titles[i]}</h4>
-                <button onclick="editPost('tit${i}', 'cont${i}', '${IDs[i]}', '${userIDsPost[i]}')" class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button onclick="deletePost('${IDs[i]}')" class="col-1 delete-btn"><i class="fa-solid fa-trash-can"></i></button>
-                </div>
+                    <div class="col-2"></div>
+                        <h4 onclick="moreInfo('${IDs[i]}', '${userIDsPost[i]}')" id="tit${i}" class="col-8 post-title">${titles[i]}</h4>
+                        <button onclick="editPost('tit${i}', 'cont${i}', '${IDs[i]}', '${userIDsPost[i]}')" class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="deletePost('${IDs[i]}')" class="col-1 delete-btn"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
                 <p id="cont${i}" class="post-content">${bodies[i]}</p>
                 `
                 document.getElementById('postsContainer').appendChild(article);
+                
+                let author = document.createElement('p');
+                author.style.fontStyle = 'italic'
+                author.style.fontSize = '12px'
+                author.style.marginTop = '30px'
+                let userIndex = userId.indexOf(parseInt(userIDsPost[i]));
+                userIndex < 0 ? author.textContent = `Post created by: Guest (${userIDsPost[i]})`:
+                author.textContent = `Post created by: ${userName[userIndex]}`;
+                article.insertAdjacentElement("beforeend", author);
             };
-    });
+        });
 }
 
 function moreInfo(id, userID) {
     let userIndex = userId.indexOf(parseInt(userID));
+
+    let postComments = []
+    comments.forEach(com => {
+        if (com.postId === parseInt(id)) {
+            postComments.push(com);
+        };
+    })
+    let commentsHTML = ``
+    postComments.forEach(com => {
+        commentsHTML += `<b>${com.name}</b> - ${com.email}<br><br>${com.body}<br><hr>`
+    })
+
+    console.log(postComments);
 
     const infoContainer = document.createElement('section');
     infoContainer.className = "more-info-container";
@@ -97,56 +117,74 @@ function moreInfo(id, userID) {
         <div class="accordion" id="accordionExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    <span>Author information: <b>${userUsername[userIndex]}</b></span>
-                </button>
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Post information:   
+                    </button>
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <p>
-                        ${userUsername[userIndex]}'s name is: <b>${userName[userIndex]}</b>. 
-                    </p>
-                    <p>
-                        ${userName[userIndex]} works at <b>${userCompany[userIndex].name}</b>, a company located in <b>${userAddress[userIndex].city}.</b> 
-                    </p>
-                    <p>
-                        Having any questions, you may contact ${userName[userIndex]} via email: <u>${userEmail[userIndex]}</u>
-                    </p>
-                </div>
+                    <div class="accordion-body">
+                        <p>
+                            Number of comments: <b>${postComments.length}</b>
+                        </p>    
+                        <p>
+                            Post author: <b>${userUsername[userIndex]}</b>
+                        </p>    
+                        <p>
+                            Post number: <b>${id}</b>
+                        </p>    
+                    </div>
                 </div>
             </div>
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Post information:
-                </button>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Author information:
+                    </button>
                 </h2>
                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <p>
-                    </p>
+                    <div id="comments-section" class="accordion-body">
+                        <p>
+                            <b>${userUsername[userIndex]}</b>'s name is: <b>${userName[userIndex]}</b>. 
+                        </p>
+                        <p>
+                            ${userName[userIndex]} works at <b>${userCompany[userIndex].name}</b>, a company located in <b>${userAddress[userIndex].city}.</b> 
+                        </p>
+                        <p>
+                            Having any questions, you may contact ${userName[userIndex]} via email: <u>${userEmail[userIndex]}</u>
+                        </p>
+                    </div>
                 </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Read Comments:
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <p>${commentsHTML}</p>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row justify-content-evenly">
-            <button onclick="closeMoreInfo();" type="button" class="col-6 btn btn-secondary">Exit</button>
+            <button onclick="closeMoreInfo();" type="button" class="col-6 btn btn-secondary close-more-info">Exit</button>
         </div>
     `
-    if ((document.getElementById('main').firstChild.className !== "more-info-container") && 
-        (document.getElementById('main').firstChild.className !== "pop-up")) {
+    if ((document.getElementById('main').firstChild.className !== "more-info-container") &&
+    (document.getElementById('main').firstChild.className !== "pop-up")) {
         document.getElementById('main').insertAdjacentElement("afterbegin", infoContainer);
     };
 }
 
-
 function editPost(titleID, contentID, id, userID) {
     const
-    titleEle = document.getElementById(titleID),
-    contentEle = document.getElementById(contentID),
-    title = titleEle.textContent,
-    content = contentEle.textContent,
-    popUp = document.createElement('section');
+        titleEle = document.getElementById(titleID),
+        contentEle = document.getElementById(contentID),
+        title = titleEle.textContent,
+        content = contentEle.textContent,
+        popUp = document.createElement('section');
 
     popUp.className = "pop-up";
     popUp.setAttribute("id", "popUp");
@@ -169,19 +207,19 @@ function editPost(titleID, contentID, id, userID) {
             </div>
         </form>
     `
-    if ((document.getElementById('main').firstChild.className !== "more-info-container") && 
+    if ((document.getElementById('main').firstChild.className !== "more-info-container") &&
         (document.getElementById('main').firstChild.className !== "pop-up")) {
         document.getElementById('main').insertAdjacentElement("afterbegin", popUp);
     }
 }
 
 function updatePost(i, userID) {
-    
+
     if (document.getElementById("form").checkValidity()) {
         const
             titleInfo = document.getElementById('updatedTitle').value,
             contentInfo = document.getElementById('updatedContent').value;
-    
+
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -227,12 +265,11 @@ function createPost() {
             </div>
         </form>
     `
-    if ((document.getElementById('main').firstChild.className !== "more-info-container") && 
+    if ((document.getElementById('main').firstChild.className !== "more-info-container") &&
         (document.getElementById('main').firstChild.className !== "pop-up")) {
         document.getElementById('main').insertAdjacentElement("afterbegin", popUp);
     }
 }
-
 
 function uploadPost() {
     if (document.getElementById("form").checkValidity()) {
@@ -286,7 +323,10 @@ function closeMoreInfo() {
 }
 
 function deletePost(id) {
-    const element = document.querySelector('#delete-request .status');
-    fetch(`http://localhost:3000/posts/${id}`, { method: 'DELETE' })
-        .then(() => displayPosts());
+    if ((document.getElementById('main').firstChild.className !== "more-info-container") &&
+        (document.getElementById('main').firstChild.className !== "pop-up")) {
+        const element = document.querySelector('#delete-request .status');
+        fetch(`http://localhost:3000/posts/${id}`, { method: 'DELETE' })
+            .then(() => displayPosts());
+    };
 }
