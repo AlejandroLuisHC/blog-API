@@ -105,3 +105,11 @@ html, body {
 .title-edit {
     text-align: center;
 }
+
+.edit-input-title {
+    height: 60px;
+}
+.edit-input-content {
+    height: 200px;
+
+}
