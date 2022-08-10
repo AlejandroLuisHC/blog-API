@@ -73,6 +73,12 @@ html, body {
     border-radius: 8px 8px 0 0;
     margin: -10px -10px 15px;
 }
+.title-container:hover {
+    background-color: rgba(20, 101, 188, .2);
+}
+.title-container h4 {
+    cursor: pointer;
+}
 
 .edit-btn, .delete-btn {
     background: none;
@@ -96,6 +102,39 @@ html, body {
     padding: 10px;
     height: 500px;
     width: 800px;
+    z-index: 2;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    box-shadow: 0 0 100px rgba(2,0,36,1);
+}
+
+.title-more-info {
+    text-align: center;
+}
+
+.edit-input-title {
+    height: 60px;
+}
+.edit-input-author {
+    height: 30px;
+}
+.edit-input-content {
+    height: 200px;
+}
+
+
+/* More Info PopUp
+..................................................*/
+
+.more-info-container {
+    font-family: 'Lato', sans-serif;
+    background: white;
+    padding: 10px;
+    width: 800px;
+    z-index: 2;
     position: fixed;
     top: 50%;
     left: 50%;
