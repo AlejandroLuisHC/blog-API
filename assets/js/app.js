@@ -1,18 +1,18 @@
 const //Posts data
-    titles = [],
-    bodies = [],
-    IDs = [],
+    titles      = [],
+    bodies      = [],
+    IDs         = [],
     userIDsPost = [];
 
 const //Users data
-    userId = [],
-    userName = [],
-    userUsername = [],
-    userEmail = [],
-    userAddress = [],
-    userPhone = [],
-    userWebsite = [],
-    userCompany = [];
+    userId          = [],
+    userName        = [],
+    userUsername    = [],
+    userEmail       = [],
+    userAddress     = [],
+    userPhone       = [],
+    userWebsite     = [],
+    userCompany     = [];
 
 // Comments Data
 const comments = []
@@ -98,7 +98,7 @@ function displayPosts() {
                 userIndex < 0 ? author.textContent = `Post created by: Guest (${userIDsPost[i]})`:
                 author.textContent = `Post created by: ${userName[userIndex]}`;
                 article.insertAdjacentElement("beforeend", author);
-                adjustTitleFontSize(`tit${i}`)
+                adjustTitleFontSize(`tit${i}`);
             };
         });
     }
@@ -122,90 +122,93 @@ function displayPost(btn, post) {
 }
 
 function moreInfo(id, userID) {
-    let userIndex = userId.indexOf(parseInt(userID));
-
-    let postComments = []
-    comments.forEach(com => {
-        if (com.postId === parseInt(id)) {
-            postComments.push(com);
+    if ((parseInt(userID) >=0) && (parseInt(userID) < 11)) {
+        let userIndex = userId.indexOf(parseInt(userID));
+        let postComments = []
+        comments.forEach(com => {
+            if (com.postId === parseInt(id)) {
+                postComments.push(com);
+            };
+        })
+        let commentsHTML = ``
+        postComments.forEach(com => {
+            commentsHTML += `<b>${com.name}</b> - ${com.email}<br><br>${com.body}<br><hr>`
+        })
+    
+        console.log(postComments);
+    
+        const infoContainer = document.createElement('section');
+        infoContainer.className = "more-info-container";
+        infoContainer.setAttribute("id", "infoContainer");
+        infoContainer.innerHTML = `
+            <div class="row justify-content-center">
+                <h2 class="col-8 title-more-info">Post information</h2>
+            </div>
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Post information:   
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p>
+                                Number of comments: <b>${postComments.length}</b>
+                            </p>    
+                            <p>
+                                Post author: <b>${userUsername[userIndex]}</b>
+                            </p>    
+                            <p>
+                                Post number: <b>${id}</b>
+                            </p>    
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Author information:
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div id="comments-section" class="accordion-body">
+                            <p>
+                                <b>${userUsername[userIndex]}</b>'s name is: <b>${userName[userIndex]}</b>. 
+                            </p>
+                            <p>
+                                ${userName[userIndex]} works at <b>${userCompany[userIndex].name}</b>, a company located in <b>${userAddress[userIndex].city}.</b> 
+                            </p>
+                            <p>
+                                Having any questions, you may contact ${userName[userIndex]} via email: <u>${userEmail[userIndex]}</u>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Read Comments:
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <div class="accordion-body comments-box">
+                            <p>${commentsHTML}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-evenly">
+                <button onclick="closeMoreInfo();" type="button" class="col-6 btn btn-secondary close-more-info">Exit</button>
+            </div>
+        `
+        if ((document.getElementById('main').firstChild.className !== "more-info-container") &&
+            (document.getElementById('main').firstChild.className !== "pop-up")) {
+            document.getElementById('main').insertAdjacentElement("afterbegin", infoContainer);
         };
-    })
-    let commentsHTML = ``
-    postComments.forEach(com => {
-        commentsHTML += `<b>${com.name}</b> - ${com.email}<br><br>${com.body}<br><hr>`
-    })
+    } else {
 
-    console.log(postComments);
-
-    const infoContainer = document.createElement('section');
-    infoContainer.className = "more-info-container";
-    infoContainer.setAttribute("id", "infoContainer");
-    infoContainer.innerHTML = `
-        <div class="row justify-content-center">
-            <h2 class="col-8 title-more-info">Post information</h2>
-        </div>
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Post information:   
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <p>
-                            Number of comments: <b>${postComments.length}</b>
-                        </p>    
-                        <p>
-                            Post author: <b>${userUsername[userIndex]}</b>
-                        </p>    
-                        <p>
-                            Post number: <b>${id}</b>
-                        </p>    
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Author information:
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <div id="comments-section" class="accordion-body">
-                        <p>
-                            <b>${userUsername[userIndex]}</b>'s name is: <b>${userName[userIndex]}</b>. 
-                        </p>
-                        <p>
-                            ${userName[userIndex]} works at <b>${userCompany[userIndex].name}</b>, a company located in <b>${userAddress[userIndex].city}.</b> 
-                        </p>
-                        <p>
-                            Having any questions, you may contact ${userName[userIndex]} via email: <u>${userEmail[userIndex]}</u>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Read Comments:
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <p>${commentsHTML}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-evenly">
-            <button onclick="closeMoreInfo();" type="button" class="col-6 btn btn-secondary close-more-info">Exit</button>
-        </div>
-    `
-    if ((document.getElementById('main').firstChild.className !== "more-info-container") &&
-    (document.getElementById('main').firstChild.className !== "pop-up")) {
-        document.getElementById('main').insertAdjacentElement("afterbegin", infoContainer);
-    };
+    }
 }
 
 function editPost(titleID, contentID, id, userID) {
@@ -326,7 +329,7 @@ function uploadPost() {
                 body: `${contentInfo}`
             })
         };
-
+        
         fetch('http://localhost:3000/posts', requestOptions)
             .then(response => response.json())
             .then(data => {
