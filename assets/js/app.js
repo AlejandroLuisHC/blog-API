@@ -68,7 +68,7 @@ function displayPosts() {
                 let article = document.createElement('article');
                 article.className = `col-5 post postNum${i}`;
                 article.setAttribute("id", `${IDs[i]}`);
-                article.style.maxHeight = "130px";
+                article.style.height = "130px";
                 article.innerHTML = `
                 <div class="row justify-content-space-between title-container">
                     <div class="col-2"></div>
@@ -109,12 +109,12 @@ function displayPost(btn, post) {
         postEle = document.querySelector(`.${post}`);
     info.forEach(p => {
         if(p.style.display === "none") {
-            postEle.style.maxHeight = '';
+            postEle.style.height = '';
             p.style.position = "relative";
             p.style.display = "block";
             btn.textContent = "Close post";
         } else {
-            postEle.style.maxHeight = '130px';
+            postEle.style.height = '130px';
             p.style.display = "none";
             btn.textContent = "Read post";
         };
@@ -269,6 +269,7 @@ function updatePost(i, userID) {
 }
 
 document.getElementById("createPostBtn").addEventListener("click", createPost);
+document.getElementById("navNewPost").addEventListener("click", createPost);
 
 function createPost() {
     const popUp = document.createElement('section');
@@ -344,7 +345,6 @@ function uploadPost() {
                 document.getElementById('postsContainer').insertAdjacentElement("afterbegin", article);
             });
     }
-    displayPosts()
 }
 
 function closePopUp() {
@@ -371,7 +371,7 @@ function adjustTitleFontSize(title) {
     let titleContent = document.getElementById(`${title}`).textContent
 
     if (titleContent.length > 60) {
-        titleEle.style.fontSize = "14px"
+        titleEle.style.fontSize = "15px"
     } else if (titleContent.length > 45) {
         titleEle.style.fontSize = "17px"
     } else if (titleContent.length > 30) {
@@ -393,8 +393,11 @@ function adaptPostSmallDevice(x) {
     if (x.matches) { // 
         articles.forEach(art => {
             art.style.width = "380px"
-    });
-        
-    } 
+        });   
+    } else {
+        articles.forEach(art => {
+            art.style.width = ""
+        }); 
+    };
 }
 
