@@ -71,7 +71,7 @@ function displayPosts() {
                 article.style.height = "130px";
                 article.innerHTML = `
                 <div class="row justify-content-space-between title-container">
-                    <div class="col-2"></div>
+                    <div class="col-2 post-num">#${i}</div>
                     <h4 onclick="moreInfo('${IDs[i]}', '${userIDsPost[i]}')" id="tit${i}" class="col-8 post-title">${titles[i]}</h4>
                     <div class="col-2 row title-btns">
                         <button onclick="editPost('tit${i}', 'cont${i}', '${IDs[i]}', '${userIDsPost[i]}')" class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -342,7 +342,7 @@ function uploadPost() {
                 article.setAttribute("id", `${pos}`)
                 article.innerHTML = `
                     <div class="row title-container">
-                        <div class="col-2"></div>
+                        <div class="col-2 post-num">#${pos}</div>
                         <h4 id="tit${pos}" class="col-8 post-title">${titleInfo}</h4>
                         <button onclick="editPost('${pos}')" class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
                         <button onclick="deletePost('tit${pos}', 'cont${pos}')" class="col-1 delete-btn"><i class="fa-solid fa-trash-can"></i></button>

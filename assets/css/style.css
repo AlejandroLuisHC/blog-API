@@ -99,6 +99,12 @@ body {
     font-weight: bold;
 }
 
+.post-num {
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
 .title-container {
     background-color: rgba(20, 101, 188, .1);
     border-radius: 8px 8px 0 0;
