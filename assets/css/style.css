@@ -61,15 +61,17 @@ body {
     color: white;
 }
 .intro {
-    background: white;
+    background: #eee;
     margin-top: 30px;
     padding: 10px;
     border-radius: 10px;
-    border: 2px solid #ccc;
+    border: 2px solid #aaa;
     box-shadow: 0 5px 10px rgba(0,0,0,.5);
     text-align: center;
 }
-
+.intro p {
+    font-size: 24px;
+}
 .new-post-btn {
     border: 2px solid rgb(29, 76, 125);
     background: rgb(20, 101, 188);
@@ -86,12 +88,13 @@ body {
 }
 
 .post {
-    background: white;
+    background: rgb(245, 248, 208);
     margin-top: 30px;
     padding: 10px;
     border-radius: 10px;
-    border: 2px solid #ccc;
+    border: 2px solid rgb(246, 250, 182);
     box-shadow: 0 5px 5px rgba(0,0,0,.5);
+    transition: 250ms;
 }
 
 .post h4 {
@@ -106,12 +109,12 @@ body {
 }
 
 .title-container {
-    background-color: rgba(20, 101, 188, .1);
+    background-color: rgba(125, 127, 90, 0.1);
     border-radius: 8px 8px 0 0;
     margin: -10px -10px 15px;
 }
 .title-container:hover {
-    background-color: rgba(20, 101, 188, .2);
+    background-color: rgba(125, 127, 90, .2);
 }
 .title-container h4 {
     cursor: pointer;

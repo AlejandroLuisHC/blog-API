@@ -109,7 +109,7 @@ function displayPost(btn, post) {
         postEle = document.querySelector(`.${post}`);
     info.forEach(p => {
         if(p.style.display === "none") {
-            postEle.style.height = '';
+            postEle.style.height = '500px';
             p.style.position = "relative";
             p.style.display = "block";
             btn.textContent = "Close post";
@@ -232,7 +232,7 @@ function editPost(titleID, contentID, id, userID) {
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" >Content</span>
-                <textarea required id="updatedContent" class="form-control edit-input-content" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">${content}</textarea>
+                <textarea maxlength="1000" required id="updatedContent" class="form-control edit-input-content" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">${content}</textarea>
             </div>
             <div class="row justify-content-evenly">
                 <button onclick="closePopUp();" type="button" class="col-3 btn btn-secondary">Cancel</button>
@@ -293,7 +293,7 @@ function createPost() {
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text">Content</span>
-                <textarea required placeholder="Write your post here" id="updatedContent" class="form-control edit-input-content" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></textarea>
+                <textarea required maxlength="1000" placeholder="Write your post here" id="updatedContent" class="form-control edit-input-content" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></textarea>
             </div>
             <div class="row justify-content-evenly">
                 <button onclick="closePopUp();" type="button" class="col-3 btn btn-secondary">Cancel</button>
