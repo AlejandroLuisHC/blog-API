@@ -67,17 +67,19 @@ function displayPosts() {
             for (let i = titles.length - 1; i >= 0; i--) {
                 let article = document.createElement('article');
                 article.className = `col-5 post postNum${i}`;
-                article.style.maxHeight = `110px`;
-                article.setAttribute("id", `${IDs[i]}`)
+                article.setAttribute("id", `${IDs[i]}`);
+                article.style.maxHeight = "130px";
                 article.innerHTML = `
-                <div class="row title-container">
-                <div class="col-2"></div>
-                <h4 onclick="moreInfo('${IDs[i]}', '${userIDsPost[i]}')" id="tit${i}" class="col-8 post-title">${titles[i]}</h4>
-                <button onclick="editPost('tit${i}', 'cont${i}', '${IDs[i]}', '${userIDsPost[i]}')" class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button onclick="deletePost('${IDs[i]}')" class="col-1 delete-btn"><i class="fa-solid fa-trash-can"></i></button>
+                <div class="row justify-content-space-between title-container">
+                    <div class="col-2"></div>
+                    <h4 onclick="moreInfo('${IDs[i]}', '${userIDsPost[i]}')" id="tit${i}" class="col-8 post-title">${titles[i]}</h4>
+                    <div class="col-2 row title-btns">
+                        <button onclick="editPost('tit${i}', 'cont${i}', '${IDs[i]}', '${userIDsPost[i]}')" class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="deletePost('${IDs[i]}')" class="col-1 delete-btn"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>               
                 </div>
                 <div class="row justify-content-center">
-                <button onclick="displayPost(this, 'postNum${i}')" class="col-12 btn btn-primary read-btn">Read post</button>
+                    <button onclick="displayPost(this, 'postNum${i}')" class="col-8 btn btn-primary read-btn">Read post</button>
                 </div>
                 <p style="display: none; margin-top: 10px;" id="cont${i}" class="post-content">${bodies[i]}</p>
                 `
@@ -101,19 +103,21 @@ function displayPosts() {
         });
     }
 
-    function displayPost(btn, post) {
-        const info = document.querySelectorAll(`.${post} p`);
-        info.forEach(p => {
-            if(p.style.display === "none") {
-                document.querySelector(`.${post}`).style.maxHeight = ``;
-                p.style.position = "relative"
-                p.style.display = "block"
-                btn.textContent = "Close post"
-            } else {
-                document.querySelector(`.${post}`).style.maxHeight = `110px`;
-                p.style.display = "none"
-                btn.textContent = "Read post"
-            }
+function displayPost(btn, post) {
+    const 
+        info = document.querySelectorAll(`.${post} p`),
+        postEle = document.querySelector(`.${post}`);
+    info.forEach(p => {
+        if(p.style.display === "none") {
+            postEle.style.maxHeight = '';
+            p.style.position = "relative";
+            p.style.display = "block";
+            btn.textContent = "Close post";
+        } else {
+            postEle.style.maxHeight = '130px';
+            p.style.display = "none";
+            btn.textContent = "Read post";
+        };
     });
 }
 
@@ -363,6 +367,7 @@ function deletePost(id) {
 function adjustTitleFontSize(title) {
     let titleEle = document.getElementById(`${title}`)
     let titleContent = document.getElementById(`${title}`).textContent
+
     if (titleContent.length > 60) {
         titleEle.style.fontSize = "14px"
     } else if (titleContent.length > 45) {
@@ -372,4 +377,22 @@ function adjustTitleFontSize(title) {
     } else if (titleContent.length > 20) {
         titleEle.style.fontSize = "22px"
     }
+
 }
+
+    // Media Query to addapt better to small devices
+
+const screen = window.matchMedia("(max-width: 420px)");
+adaptPostSmallDevice(screen);
+screen.addListener(adaptPostSmallDevice);
+
+function adaptPostSmallDevice(x) {
+    const articles = document.querySelectorAll('.post');
+    if (x.matches) { // 
+        articles.forEach(art => {
+            art.style.width = "380px"
+    });
+        
+    } 
+}
+

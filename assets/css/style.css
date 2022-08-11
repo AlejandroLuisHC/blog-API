@@ -5,7 +5,7 @@ margin: 0;
 box-sizing: border-box;
 }
 
-body {
+html, body {
     font-family: 'Lato', sans-serif;
     background-color: #eee;
     width: 100%;
@@ -94,7 +94,7 @@ body {
     
 }
 .read-btn {
-    width: 200px;
+    width: 140px;
     background-color: rgb(20, 101, 188);
     height: 25px;
     padding: 0;
@@ -109,7 +109,7 @@ body {
     background: white;
     padding: 10px;
     height: 500px;
-    width: 800px;
+    width: 600px;
     z-index: 2;
     position: fixed;
     top: 50%;
@@ -143,7 +143,7 @@ body {
     font-family: 'Lato', sans-serif;
     background: white;
     padding: 10px;
-    width: 800px;
+    width: 600px;
     z-index: 2;
     position: fixed;
     top: 50%;
@@ -159,4 +159,15 @@ body {
 
 .read-comments-btn {
     background: rgb(20, 101, 188);
+}
+
+
+
+/* Media queries 
+...........................................................*/
+
+@media screen and (max-width: 600px) { 
+    .pop-up, .more-info-container {
+        width: 350px;
+    }
 }
