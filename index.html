@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Blog with API</title>
-    <link rel="icon" href="./assets/img/favicon.png" type="image/png" sizes="16x16" />
+    <link rel="icon" href="./assets/img/tab-icon.png" type="image/png" sizes="16x16" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -20,8 +20,7 @@
 <body>
     <nav class="container-fluid nav">
         <a class="logo-nav" href="index.html">
-            <img src="assets\img\favicon.png" alt="icon">
-            <span>Blog</span>
+            <span><i class="fa-solid fa-laptop-code"></i>Blog</span>
         </a>
     </nav>
     <main id="main">
@@ -32,7 +31,7 @@
             </section>
         </div>
         <div class="row justify-content-center">
-            <button onclick="createPost()" class="col-6 btn btn-primary new-post-btn">Create new post</button>
+            <button id="createPostBtn" class="col-6 btn btn-primary new-post-btn">Create new post</button>
         </div>
         <section id="postsContainer" class="row justify-content-evenly post-container">
         </section>

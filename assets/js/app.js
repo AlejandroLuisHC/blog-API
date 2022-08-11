@@ -268,6 +268,8 @@ function updatePost(i, userID) {
     }
 }
 
+document.getElementById("createPostBtn").addEventListener("click", createPost);
+
 function createPost() {
     const popUp = document.createElement('section');
     popUp.className = "pop-up";
