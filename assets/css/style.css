@@ -93,6 +93,13 @@ body {
     transform: scale(1.2);
     
 }
+.read-btn {
+    width: 200px;
+    background-color: rgb(20, 101, 188);
+    height: 25px;
+    padding: 0;
+
+}
 
 
 /* Edit PopUp
@@ -111,7 +118,9 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 100px rgba(0,0,0,1);
 }
-
+.title-edit {
+    text-align: center;
+}
 .title-more-info {
     text-align: center;
 }

@@ -66,29 +66,55 @@ function displayPosts() {
             });
             for (let i = titles.length - 1; i >= 0; i--) {
                 let article = document.createElement('article');
-                article.className = "col-5 post";
+                article.className = `col-5 post postNum${i}`;
+                article.style.maxHeight = `110px`;
                 article.setAttribute("id", `${IDs[i]}`)
                 article.innerHTML = `
                 <div class="row title-container">
-                    <div class="col-2"></div>
-                        <h4 onclick="moreInfo('${IDs[i]}', '${userIDsPost[i]}')" id="tit${i}" class="col-8 post-title">${titles[i]}</h4>
-                        <button onclick="editPost('tit${i}', 'cont${i}', '${IDs[i]}', '${userIDsPost[i]}')" class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button onclick="deletePost('${IDs[i]}')" class="col-1 delete-btn"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
-                <p id="cont${i}" class="post-content">${bodies[i]}</p>
+                <div class="col-2"></div>
+                <h4 onclick="moreInfo('${IDs[i]}', '${userIDsPost[i]}')" id="tit${i}" class="col-8 post-title">${titles[i]}</h4>
+                <button onclick="editPost('tit${i}', 'cont${i}', '${IDs[i]}', '${userIDsPost[i]}')" class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button onclick="deletePost('${IDs[i]}')" class="col-1 delete-btn"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+                <div class="row justify-content-center">
+                <button onclick="displayPost(this, 'postNum${i}')" class="col-12 btn btn-primary read-btn">Read post</button>
+                </div>
+                <p style="display: none; margin-top: 10px;" id="cont${i}" class="post-content">${bodies[i]}</p>
                 `
                 document.getElementById('postsContainer').appendChild(article);
                 
                 let author = document.createElement('p');
-                author.style.fontStyle = 'italic'
-                author.style.fontSize = '12px'
-                author.style.marginTop = '30px'
+                author.style.fontStyle = 'italic';
+                author.style.fontSize = '12px';
+                author.style.marginTop = '30px';
+                author.style.display = 'none';
+                author.style.cursor = 'pointer';
+                author.addEventListener('click', () => {
+                    moreInfo(`${IDs[i]}`, `${userIDsPost[i]}`)   
+                });
                 let userIndex = userId.indexOf(parseInt(userIDsPost[i]));
                 userIndex < 0 ? author.textContent = `Post created by: Guest (${userIDsPost[i]})`:
                 author.textContent = `Post created by: ${userName[userIndex]}`;
                 article.insertAdjacentElement("beforeend", author);
+                adjustTitleFontSize(`tit${i}`)
             };
         });
+    }
+
+    function displayPost(btn, post) {
+        const info = document.querySelectorAll(`.${post} p`);
+        info.forEach(p => {
+            if(p.style.display === "none") {
+                document.querySelector(`.${post}`).style.maxHeight = ``;
+                p.style.position = "relative"
+                p.style.display = "block"
+                btn.textContent = "Close post"
+            } else {
+                document.querySelector(`.${post}`).style.maxHeight = `110px`;
+                p.style.display = "none"
+                btn.textContent = "Read post"
+            }
+    });
 }
 
 function moreInfo(id, userID) {
@@ -190,12 +216,12 @@ function editPost(titleID, contentID, id, userID) {
     popUp.setAttribute("id", "popUp");
     popUp.innerHTML = `
         <div class="row justify-content-center">
-            <h2 class="col-8 title-edit">Edit post</h2>
+            <h2 class="col-12 title-edit">Edit post</h2>
         </div>
         <form id="form">
             <div class="input-group mb-3">
                 <span class="input-group-text">Title</span>
-                <textarea required id="updatedTitle" class="form-control edit-input-title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">${title}</textarea>
+                <textarea maxlength="80" required id="updatedTitle" class="form-control edit-input-title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">${title}</textarea>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" >Content</span>
@@ -244,16 +270,16 @@ function createPost() {
     popUp.setAttribute("id", "popUp");
     popUp.innerHTML = `
         <div class="row justify-content-center">
-            <h2 class="col-8 title-edit">Create post</h2>
+            <h2 class="col-12 title-edit">Create post</h2>
         </div>
         <form id="form"> 
             <div class="input-group mb-3">
                 <span class="input-group-text">Author Id</span>
-                <textarea required placeholder="Write your author ID" id="author" class="form-control edit-input-author" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></textarea>
+                <textarea required placeholder="Write your author ID or your name if you are a guest" id="author" class="form-control edit-input-author" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></textarea>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text">Post Title</span>
-                <textarea required placeholder="Write your post title here" id="updatedTitle" class="form-control edit-input-title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></textarea>
+                <textarea required maxlength="80" placeholder="Write your post title here" id="updatedTitle" class="form-control edit-input-title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></textarea>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text">Content</span>
@@ -329,4 +355,21 @@ function deletePost(id) {
         fetch(`http://localhost:3000/posts/${id}`, { method: 'DELETE' })
             .then(() => displayPosts());
     };
+}
+
+
+    // Control title size according to its length
+
+function adjustTitleFontSize(title) {
+    let titleEle = document.getElementById(`${title}`)
+    let titleContent = document.getElementById(`${title}`).textContent
+    if (titleContent.length > 60) {
+        titleEle.style.fontSize = "14px"
+    } else if (titleContent.length > 45) {
+        titleEle.style.fontSize = "17px"
+    } else if (titleContent.length > 30) {
+        titleEle.style.fontSize = "20px"
+    } else if (titleContent.length > 20) {
+        titleEle.style.fontSize = "22px"
+    }
 }
