@@ -153,13 +153,13 @@ body {
 }
 
 .edit-input-title {
-    height: 60px;
+    height: 30px;
 }
 .edit-input-author {
     height: 30px;
 }
 .edit-input-content {
-    height: 200px;
+    height: 250px;
 }
 
 
