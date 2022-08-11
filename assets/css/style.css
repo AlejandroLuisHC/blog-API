@@ -40,7 +40,7 @@ body {
 }
 .nav-new-post {
     cursor: pointer;
-    color: white;
+    color: black;
     animation: clickMe 1200ms ease-in infinite;
 }
 @keyframes clickMe {
@@ -56,6 +56,9 @@ body {
         transform: scale(1.2);
         text-shadow: 0 0 5px rgba(141, 236, 255, 0);
     }
+}
+.nav-new-post:hover {
+    color: white;
 }
 .intro {
     background: white;
