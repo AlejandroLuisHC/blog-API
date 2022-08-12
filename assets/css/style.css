@@ -114,7 +114,7 @@ body {
     padding: 10px;
     transform: rotate(-.3deg);
     border-radius: 0 0 10px 10px;
-    box-shadow: 0 5px 5px rgba(0,0,0,.5);
+    box-shadow: 0 8px 8px rgba(0,0,0,.8);
     transition: 250ms;
 }
 

@@ -70,14 +70,15 @@ function displayPosts() {
                 let randomPostItColor = postItsColors[Math.floor(Math.random()*postItsColors.length)];
                 let randomPostItRotation = postItsRotations[Math.floor(Math.random()*postItsRotations.length)];
                 let article = document.createElement('article');
-                article.className = `col-5 post postNum${i}`;
+                article.className = `col-5 post postNum${i + 1}`;
                 article.setAttribute("id", `${IDs[i]}`);
                 article.style.backgroundColor = randomPostItColor;
                 article.style.transform = randomPostItRotation;
                 article.style.height = "130px";
+                article.style.width = "390px";
                 article.innerHTML = `
                 <div class="row justify-content-space-between title-container">
-                    <div class="col-2 post-num">#${i}</div>
+                    <div class="col-2 post-num">#${i + 1}</div>
                     <h4 onclick="moreInfo('${IDs[i]}', '${userIDsPost[i]}')" id="tit${i}" class="col-8 post-title">${titles[i]}</h4>
                     <div class="col-2 row title-btns">
                         <button onclick="editPost('tit${i}', 'cont${i}', '${IDs[i]}', '${userIDsPost[i]}')" class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -85,7 +86,7 @@ function displayPosts() {
                     </div>               
                 </div>
                 <div class="row justify-content-center">
-                    <button onclick="displayPost(this, 'postNum${i}')" class="col-8 btn btn-primary read-btn">Read post</button>
+                    <button onclick="displayPost(this, 'postNum${i + 1}')" class="col-8 btn btn-primary read-btn">Read post</button>
                 </div>
                 <p style="display: none; margin-top: 10px;" id="cont${i}" class="post-content">${bodies[i]}</p>
                 `
@@ -272,7 +273,7 @@ function updatePost(i, userID) {
         fetch(`http://localhost:3000/posts/${(i)}`, requestOptions)
             .then(response => response.json())
             .then(data => {
-                displayPosts()
+                displayPosts();
             });
     }
 }
@@ -306,27 +307,25 @@ function createPost() {
                 <button onclick="uploadPost()" type="submit" class="col-3 btn btn-success">Post it!</button>
             </div>
         </form>
-    `
+    `;
     if ((document.getElementById('main').firstChild.className !== "more-info-container") &&
         (document.getElementById('main').firstChild.className !== "pop-up")) {
         document.getElementById('main').insertAdjacentElement("afterbegin", popUp);
-    }
+    };
 }
 
 function uploadPost() {
     if (document.getElementById("form").checkValidity()) {
-        const
+        let
             titleInfo = document.getElementById('updatedTitle').value,
             contentInfo = document.getElementById('updatedContent').value,
             author = document.getElementById('author').value,
-            newId = 0,
-            pos = 0;
+            id;
 
         fetch("http://localhost:3000/posts")
             .then(res => res.json())
             .then(data => {
-                newId = data[data.length - 1].id + 1
-                pos = data[data.length] + 1
+                id = data.length + 1;
             })
 
         const requestOptions = {
@@ -334,7 +333,7 @@ function uploadPost() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 userId: author,
-                id: newId,
+                id: id,
                 title: titleInfo,
                 body: contentInfo
             })
@@ -345,16 +344,16 @@ function uploadPost() {
             .then(data => {
                 let article = document.createElement('article');
                 article.className = "col-5 post";
-                article.setAttribute("id", `${pos}`)
+                article.setAttribute("id", `${id}`);
                 article.innerHTML = `
                     <div class="row title-container">
-                        <div class="col-2 post-num">#${pos}</div>
-                        <h4 id="tit${pos}" class="col-8 post-title">${titleInfo}</h4>
-                        <button onclick="editPost('${pos}')" class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button onclick="deletePost('tit${pos}', 'cont${pos}')" class="col-1 delete-btn"><i class="fa-solid fa-trash-can"></i></button>
+                        <div class="col-2 post-num">#${id + 1}</div>
+                        <h4 id="tit${id}" class="col-8 post-title">${titleInfo}</h4>
+                        <button onclick="editPost('${id}')" class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="deletePost('tit${id}', 'cont${id}')" class="col-1 delete-btn"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
-                    <p id="cont${pos}" class="post-content">${contentInfo}</p>
-                `
+                    <p id="cont${id}" class="post-content">${contentInfo}</p>
+                `;
                 document.getElementById('postsContainer').insertAdjacentElement("afterbegin", article);
             });
     }
@@ -409,7 +408,7 @@ function adaptPostSmallDevice(x) {
         });   
     } else {
         articles.forEach(art => {
-            art.style.width = ""
+            art.style.width = "390px"
         }); 
     };
 }
