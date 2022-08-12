@@ -13,7 +13,7 @@ html, body {
     overflow-x: hidden;
 }
 body {
-    background-image:url(/assets/img/background.jpg);
+    background-image:url(/assets/img/background1.jpg);
     background-size: cover;
     background-position-x: 50%;
 }
@@ -25,6 +25,27 @@ body {
     font-weight: 900;
     font-size: 24px;
     box-shadow: 0 5px 10px rgba(0,0,0,.5);
+}
+.nav-right-functions {
+    display: flex;
+    align-items: center;
+    column-gap: 30px;
+}
+.searchbar {
+    width: 250px;
+    height: 35px;
+}
+.searchbtn {
+    padding: 5px;
+    width: 35px;
+    height: 35px;
+}
+.form-inline {
+    display: flex;
+}
+.btn-dark {
+    background-color: black;
+    border-radius: 50%;
 }
 .logo-nav {
     text-decoration: none;
@@ -45,15 +66,15 @@ body {
 }
 @keyframes clickMe {
     0% {
-        transform: scale(1.2);
+        transform: scale(1.4);
         text-shadow: 0 0 5px rgba(141, 236, 255, 0);
     }
     50% {
-        transform: scale(1.4);
+        transform: scale(1.6);
         text-shadow: 0 0 5px rgba(141, 236, 255, .5)
     }
     100% {
-        transform: scale(1.2);
+        transform: scale(1.4);
         text-shadow: 0 0 5px rgba(141, 236, 255, 0);
     }
 }
@@ -61,15 +82,17 @@ body {
     color: white;
 }
 .intro {
-    background: white;
+    background: #eee;
     margin-top: 30px;
     padding: 10px;
     border-radius: 10px;
-    border: 2px solid #ccc;
+    border: 2px solid #aaa;
     box-shadow: 0 5px 10px rgba(0,0,0,.5);
     text-align: center;
 }
-
+.intro p {
+    font-size: 24px;
+}
 .new-post-btn {
     border: 2px solid rgb(29, 76, 125);
     background: rgb(20, 101, 188);
@@ -86,12 +109,13 @@ body {
 }
 
 .post {
-    background: white;
+    background-color: rgb(187, 174, 255);
     margin-top: 30px;
     padding: 10px;
-    border-radius: 10px;
-    border: 2px solid #ccc;
-    box-shadow: 0 5px 5px rgba(0,0,0,.5);
+    transform: rotate(-.3deg);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 8px 8px rgba(0,0,0,.8);
+    transition: 250ms;
 }
 
 .post h4 {
@@ -106,12 +130,11 @@ body {
 }
 
 .title-container {
-    background-color: rgba(20, 101, 188, .1);
-    border-radius: 8px 8px 0 0;
+    background-color: rgba(0, 0, 0, .05);
     margin: -10px -10px 15px;
 }
 .title-container:hover {
-    background-color: rgba(20, 101, 188, .2);
+    background-color: rgba(0, 0, 0, .1);
 }
 .title-container h4 {
     cursor: pointer;
@@ -212,5 +235,18 @@ body {
     .comments-box {
         max-height: 350px;
         overflow-y: scroll;
+    }
+    .nav-right-functions {
+        display: flex;
+        width: 210px;
+        height: 35px;
+    }
+    .searchbar {
+        margin-top: 8px;
+        width: 200px;
+        height: 35px;
+    }
+    .nav-new-post {
+        display: none;
     }
 }

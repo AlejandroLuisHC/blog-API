@@ -64,14 +64,21 @@ function displayPosts() {
                 IDs.push(e.id);
                 userIDsPost.push(e.userId);
             });
+            let postItsColors = ['rgb(245, 248, 208)', 'rgb(208, 248, 243)', 'rgb(248, 208, 237)', 'rgb(213, 248, 208)', 'rgb(255, 215, 174)', 'rgb(224, 174, 255)']
+            let postItsRotations = ['', 'rotate(-.6deg)', 'rotate(-.9deg)', 'rotate(-1.2deg)', 'rotate(-1.5deg)', 'rotate(.6deg)', 'rotate(.9deg)', 'rotate(1.2deg)', 'rotate(1.5deg)']
             for (let i = titles.length - 1; i >= 0; i--) {
+                let randomPostItColor = postItsColors[Math.floor(Math.random()*postItsColors.length)];
+                let randomPostItRotation = postItsRotations[Math.floor(Math.random()*postItsRotations.length)];
                 let article = document.createElement('article');
-                article.className = `col-5 post postNum${i}`;
+                article.className = `col-5 post postNum${i + 1}`;
                 article.setAttribute("id", `${IDs[i]}`);
+                article.style.backgroundColor = randomPostItColor;
+                article.style.transform = randomPostItRotation;
                 article.style.height = "130px";
+                article.style.width = "390px";
                 article.innerHTML = `
                 <div class="row justify-content-space-between title-container">
-                    <div class="col-2 post-num">#${i}</div>
+                    <div class="col-2 post-num">#${i + 1}</div>
                     <h4 onclick="moreInfo('${IDs[i]}', '${userIDsPost[i]}')" id="tit${i}" class="col-8 post-title">${titles[i]}</h4>
                     <div class="col-2 row title-btns">
                         <button onclick="editPost('tit${i}', 'cont${i}', '${IDs[i]}', '${userIDsPost[i]}')" class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -79,7 +86,7 @@ function displayPosts() {
                     </div>               
                 </div>
                 <div class="row justify-content-center">
-                    <button onclick="displayPost(this, 'postNum${i}')" class="col-8 btn btn-primary read-btn">Read post</button>
+                    <button onclick="displayPost(this, 'postNum${i + 1}')" class="col-8 btn btn-primary read-btn">Read post</button>
                 </div>
                 <p style="display: none; margin-top: 10px;" id="cont${i}" class="post-content">${bodies[i]}</p>
                 `
@@ -109,7 +116,7 @@ function displayPost(btn, post) {
         postEle = document.querySelector(`.${post}`);
     info.forEach(p => {
         if(p.style.display === "none") {
-            postEle.style.height = '';
+            postEle.style.height = '500px';
             p.style.position = "relative";
             p.style.display = "block";
             btn.textContent = "Close post";
@@ -232,7 +239,7 @@ function editPost(titleID, contentID, id, userID) {
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" >Content</span>
-                <textarea required id="updatedContent" class="form-control edit-input-content" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">${content}</textarea>
+                <textarea maxlength="1000" required id="updatedContent" class="form-control edit-input-content" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">${content}</textarea>
             </div>
             <div class="row justify-content-evenly">
                 <button onclick="closePopUp();" type="button" class="col-3 btn btn-secondary">Cancel</button>
@@ -266,7 +273,7 @@ function updatePost(i, userID) {
         fetch(`http://localhost:3000/posts/${(i)}`, requestOptions)
             .then(response => response.json())
             .then(data => {
-                displayPosts()
+                displayPosts();
             });
     }
 }
@@ -293,18 +300,18 @@ function createPost() {
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text">Content</span>
-                <textarea required placeholder="Write your post here" id="updatedContent" class="form-control edit-input-content" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></textarea>
+                <textarea required maxlength="1000" placeholder="Write your post here" id="updatedContent" class="form-control edit-input-content" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></textarea>
             </div>
             <div class="row justify-content-evenly">
                 <button onclick="closePopUp();" type="button" class="col-3 btn btn-secondary">Cancel</button>
                 <button onclick="uploadPost()" type="submit" class="col-3 btn btn-success">Post it!</button>
             </div>
         </form>
-    `
+    `;
     if ((document.getElementById('main').firstChild.className !== "more-info-container") &&
         (document.getElementById('main').firstChild.className !== "pop-up")) {
         document.getElementById('main').insertAdjacentElement("afterbegin", popUp);
-    }
+    };
 }
 
 function uploadPost() {
@@ -342,7 +349,7 @@ function uploadPost() {
                 article.setAttribute("id", `${pos}`)
                 article.innerHTML = `
                     <div class="row title-container">
-                        <div class="col-2 post-num">#${pos}</div>
+                        <div class="col-2 post-num">#${pos + 1}</div>
                         <h4 id="tit${pos}" class="col-8 post-title">${titleInfo}</h4>
                         <button onclick="editPost('${pos}')" class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
                         <button onclick="deletePost('tit${pos}', 'cont${pos}')" class="col-1 delete-btn"><i class="fa-solid fa-trash-can"></i></button>
@@ -403,7 +410,7 @@ function adaptPostSmallDevice(x) {
         });   
     } else {
         articles.forEach(art => {
-            art.style.width = ""
+            art.style.width = "390px"
         }); 
     };
 }
