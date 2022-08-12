@@ -316,16 +316,18 @@ function createPost() {
 
 function uploadPost() {
     if (document.getElementById("form").checkValidity()) {
-        let
+        const
             titleInfo = document.getElementById('updatedTitle').value,
             contentInfo = document.getElementById('updatedContent').value,
             author = document.getElementById('author').value,
-            id;
+            newId = 0,
+            pos = 0;
 
         fetch("http://localhost:3000/posts")
             .then(res => res.json())
             .then(data => {
-                id = data.length + 1;
+                newId = data[data.length - 1].id + 1
+                pos = data[data.length] + 1
             })
 
         const requestOptions = {
@@ -333,7 +335,7 @@ function uploadPost() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 userId: author,
-                id: id,
+                id: newId,
                 title: titleInfo,
                 body: contentInfo
             })
@@ -344,16 +346,16 @@ function uploadPost() {
             .then(data => {
                 let article = document.createElement('article');
                 article.className = "col-5 post";
-                article.setAttribute("id", `${id}`);
+                article.setAttribute("id", `${pos}`)
                 article.innerHTML = `
                     <div class="row title-container">
-                        <div class="col-2 post-num">#${id + 1}</div>
-                        <h4 id="tit${id}" class="col-8 post-title">${titleInfo}</h4>
-                        <button onclick="editPost('${id}')" class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button onclick="deletePost('tit${id}', 'cont${id}')" class="col-1 delete-btn"><i class="fa-solid fa-trash-can"></i></button>
+                        <div class="col-2 post-num">#${pos + 1}</div>
+                        <h4 id="tit${pos}" class="col-8 post-title">${titleInfo}</h4>
+                        <button onclick="editPost('${pos}')" class="col-1 edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="deletePost('tit${pos}', 'cont${pos}')" class="col-1 delete-btn"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
-                    <p id="cont${id}" class="post-content">${contentInfo}</p>
-                `;
+                    <p id="cont${pos}" class="post-content">${contentInfo}</p>
+                `
                 document.getElementById('postsContainer').insertAdjacentElement("afterbegin", article);
             });
     }
