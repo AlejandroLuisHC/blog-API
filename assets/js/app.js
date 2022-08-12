@@ -75,7 +75,9 @@ function displayPosts() {
                 article.style.backgroundColor = randomPostItColor;
                 article.style.transform = randomPostItRotation;
                 article.style.height = "130px";
-                article.style.width = "390px";
+                article.style.width = "400px";
+                article.style.margin = "30px";
+
                 article.innerHTML = `
                 <div class="row justify-content-space-between title-container">
                     <div class="col-2 post-num">#${i + 1}</div>
@@ -410,7 +412,7 @@ function adaptPostSmallDevice(x) {
         });   
     } else {
         articles.forEach(art => {
-            art.style.width = "390px"
+            art.style.width = "400px"
         }); 
     };
 }
