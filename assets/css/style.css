@@ -109,11 +109,10 @@ body {
 }
 
 .post {
-    background: rgb(245, 248, 208);
+    background-color: rgb(187, 174, 255);
     margin-top: 30px;
     padding: 10px;
-    border-radius: 10px;
-    border: 2px solid rgb(246, 250, 182);
+    border-radius: 0 0 10px 10px;
     box-shadow: 0 5px 5px rgba(0,0,0,.5);
     transition: 250ms;
 }
@@ -130,12 +129,11 @@ body {
 }
 
 .title-container {
-    background-color: rgba(125, 127, 90, 0.1);
-    border-radius: 8px 8px 0 0;
+    background-color: rgba(0, 0, 0, .05);
     margin: -10px -10px 15px;
 }
 .title-container:hover {
-    background-color: rgba(125, 127, 90, .2);
+    background-color: rgba(0, 0, 0, .1);
 }
 .title-container h4 {
     cursor: pointer;
