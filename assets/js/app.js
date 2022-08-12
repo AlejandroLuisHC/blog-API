@@ -65,12 +65,15 @@ function displayPosts() {
                 userIDsPost.push(e.userId);
             });
             let postItsColors = ['rgb(245, 248, 208)', 'rgb(208, 248, 243)', 'rgb(248, 208, 237)', 'rgb(213, 248, 208)', 'rgb(255, 215, 174)', 'rgb(224, 174, 255)']
+            let postItsRotations = ['', 'rotate(-.6deg)', 'rotate(-.9deg)', 'rotate(-1.2deg)', 'rotate(-1.5deg)', 'rotate(.6deg)', 'rotate(.9deg)', 'rotate(1.2deg)', 'rotate(1.5deg)']
             for (let i = titles.length - 1; i >= 0; i--) {
                 let randomPostItColor = postItsColors[Math.floor(Math.random()*postItsColors.length)];
+                let randomPostItRotation = postItsRotations[Math.floor(Math.random()*postItsRotations.length)];
                 let article = document.createElement('article');
                 article.className = `col-5 post postNum${i}`;
                 article.setAttribute("id", `${IDs[i]}`);
                 article.style.backgroundColor = randomPostItColor;
+                article.style.transform = randomPostItRotation;
                 article.style.height = "130px";
                 article.innerHTML = `
                 <div class="row justify-content-space-between title-container">
