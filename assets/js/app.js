@@ -241,7 +241,7 @@ function editPost(titleID, contentID, id, userID) {
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" >Content</span>
-                <textarea maxlength="1000" required id="updatedContent" class="form-control edit-input-content" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">${content}</textarea>
+                <textarea maxlength="500" required id="updatedContent" class="form-control edit-input-content" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">${content}</textarea>
             </div>
             <div class="row justify-content-evenly">
                 <button onclick="closePopUp();" type="button" class="col-3 btn btn-secondary">Cancel</button>

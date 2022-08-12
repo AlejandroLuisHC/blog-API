@@ -116,6 +116,10 @@ body {
     box-shadow: 0 8px 8px rgba(0,0,0,.8);
     transition: 250ms;
 }
+.post p {
+    width: 360px;
+    word-wrap: break-word;
+}
 
 .post h4 {
     text-align: center;
