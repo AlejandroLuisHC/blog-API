@@ -245,7 +245,7 @@ function editPost(titleID, contentID, id, userID) {
             </div>
             <div class="row justify-content-evenly">
                 <button onclick="closePopUp();" type="button" class="col-3 btn btn-secondary">Cancel</button>
-                <button onclick="updatePost('${id}', '${userID}')" type="submit" class="col-3 btn btn-success">Save</button>
+                <button onclick="updatePost('${id}', '${userID}', event)" type="submit" class="col-3 btn btn-success">Save</button>
             </div>
         </form>
     `
@@ -255,8 +255,8 @@ function editPost(titleID, contentID, id, userID) {
     }
 }
 
-function updatePost(i, userID) {
-
+function updatePost(i, userID, e) {
+    e.preventDefault();
     if (document.getElementById("form").checkValidity()) {
         const
             titleInfo = document.getElementById('updatedTitle').value,
@@ -306,7 +306,7 @@ function createPost() {
             </div>
             <div class="row justify-content-evenly">
                 <button onclick="closePopUp();" type="button" class="col-3 btn btn-secondary">Cancel</button>
-                <button onclick="uploadPost()" type="submit" class="col-3 btn btn-success">Post it!</button>
+                <button onclick="uploadPost(event)" type="submit" class="col-3 btn btn-success">Post it!</button>
             </div>
         </form>
     `;
@@ -316,7 +316,8 @@ function createPost() {
     };
 }
 
-function uploadPost() {
+function uploadPost(e) {
+    e.preventDefault();
     if (document.getElementById("form").checkValidity()) {
         const
             titleInfo = document.getElementById('updatedTitle').value,
